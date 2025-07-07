@@ -11,7 +11,6 @@ test('navigate to form page', async ({ page }) => {
     await navigateTo.datepickerPage()
 })
 test('filling forms', async ({ page }) => {
-    // Navigate to Form Layouts page
     const navigateTo = new NavigationPage(page)
     const onFormLayoutsPage = new formLayoutsPage(page)
     navigateTo.formLayoutsPage(page)
