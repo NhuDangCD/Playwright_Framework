@@ -7,13 +7,13 @@ test.beforeEach(async ({ page }) => {
 })
 test('navigate to form page', async ({ page }) => {
     const navigateTo = new NavigationPage(page)
-    await navigateTo.formLayoutsPage(page) 
+    await navigateTo.formLayoutsPage() 
     await navigateTo.datepickerPage()
 })
 test('filling forms', async ({ page }) => {
     const navigateTo = new NavigationPage(page)
     const onFormLayoutsPage = new formLayoutsPage(page)
-    navigateTo.formLayoutsPage(page)
+    navigateTo.formLayoutsPage()
     //await expect(page.locator('text=Form Layouts')).toBeVisible();  // Add assertion 
     await onFormLayoutsPage.submitFormWithCredentials('tesdt@test.com', 'Welcome1', 'Option 1')
     //await expect(page.locator('text= Inline Form')).toBeVisible();
