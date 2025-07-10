@@ -2,9 +2,10 @@ import { test } from '@playwright/test';
 import { SmartTablePage } from '../page-objects/smartTable';
 import { NavigationPage } from '../page-objects/navigationPage';
 
+test.beforeEach(async ({ page }) => {
+  await page.goto('http://localhost:4200/')
+})
 test('Print table rows as array of objects', async ({ page }) => {
-  await page.goto('http://localhost:4200');
-
   const nav = new NavigationPage(page);
   await nav.smartTablePage();
 

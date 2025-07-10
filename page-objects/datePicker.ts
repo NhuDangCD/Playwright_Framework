@@ -1,12 +1,11 @@
 import { Page, Locator } from '@playwright/test';
 
 export class DatePicker {
-    readonly page: Page;
-    readonly calendarInputField: Locator;
+    private readonly page: Page;
+    private readonly calendarInputField: Locator;
 
     constructor(page: Page) {
         this.page = page;
-
         this.calendarInputField = page.getByPlaceholder('Form Picker');
     }
 

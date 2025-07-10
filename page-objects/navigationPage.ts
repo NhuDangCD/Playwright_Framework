@@ -2,24 +2,25 @@ import { Locator, Page } from "@playwright/test";
 import { HelperBase } from "./helperBase";
 
 export class NavigationPage extends HelperBase {
-    readonly page: Page;
+    protected readonly page: Page;
 
-    // Define locators
-    readonly fromLayoutsMenuItem: Locator;
-    readonly datePickerMenuItem: Locator;
-    readonly smartTableMenuItem: Locator;
-    readonly toastrMenuItem: Locator;
-    readonly tooltipMenuItem: Locator;
+
+    // Private locators 
+    private readonly fromLayoutsMenuItem: Locator;
+    private readonly datePickerMenuItem: Locator;
+    private readonly smartTableMenuItem: Locator;
+    private readonly toastrMenuItem: Locator;
+    private readonly tooltipMenuItem: Locator;
 
     constructor(page: Page) {
         super(page);
         this.page = page;
-        // Initialize locators here
-        this.fromLayoutsMenuItem = page.getByText("Form Layouts");
-        this.datePickerMenuItem = page.getByText("Datepicker");
-        this.smartTableMenuItem = page.getByText("Smart Table");
-        this.toastrMenuItem = page.getByText("Toastr");
-        this.tooltipMenuItem = page.getByText("Tooltip");
+        // Initialize locators here using Xpath
+        this.fromLayoutsMenuItem = page.locator('//a[normalize-space()="Form Layouts"]');
+        this.datePickerMenuItem = page.locator('//a[normalize-space()="Datepicker"]');
+        this.smartTableMenuItem = page.locator('//a[normalize-space()="Smart Table"]');
+        this.toastrMenuItem = page.locator('//a[normalize-space()="Toastr"]');
+        this.tooltipMenuItem = page.locator('//a[normalize-space()="Tooltip"]');
     }
 
     async formLayoutsPage() {

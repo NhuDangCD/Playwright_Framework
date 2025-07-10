@@ -23,10 +23,7 @@ test('filling forms', async ({ page }) => {
 test('filling DatePicker', async ({ page }) => {
     const navigateTo = new NavigationPage(page);
     const onDatePickerPage = new DatePicker(page);
-
     navigateTo.datepickerPage();
-
-    // await onDatePickerPage.validateCommonDatePicker(); // if needed
-    await onDatePickerPage.openCalendar(); // ✅ instance method
-    await onDatePickerPage.selectCorrectDay(); // ✅ instance method
+    await onDatePickerPage.openCalendar();
+    await onDatePickerPage.selectCorrectDay(21);
 });

@@ -8,58 +8,74 @@ interface RowData {
   email: string;
   age: string;
 }
+
 export class SmartTablePage {
-  readonly page: Page;
-  readonly tableRows: Locator;
+  private readonly page: Page;
+  private readonly tableRows: Locator;
 
   constructor(page: Page) {
     this.page = page;
-    // Chọn tất cả hàng trong bảng (tbody > tr)
-    this.tableRows = page.locator('table tbody tr');
+    // Dùng XPath để lấy tất cả dòng
+    this.tableRows = page.locator('//table//tbody//tr');
   }
-  // Trả về số lượng dòng (tr) trong bảng
-  async getRowCount(): Promise<number> {
+
+  public async getRowCount(): Promise<number> {
     return await this.tableRows.count();
   }
 
-  /**
-   * Lấy nội dung text từng dòng, trả về dưới dạng mảng string[]
-   */
-  async getRowTexts(): Promise<string[]> {
-    // Đợi ít nhất 1 dòng hiển thị
-    await this.tableRows.first().waitFor({ state: 'visible', timeout: 5000 });
-
-    const rowCount = await this.getRowCount();
+  public async getRowTexts(): Promise<string[]> {
     const rows: string[] = [];
 
-    for (let i = 0; i < rowCount; i++) {
-      const rowText = await this.tableRows.nth(i).innerText();
-      rows.push(rowText.trim());
+    try {
+      await this.tableRows.first().waitFor({ state: 'visible', timeout: 5000 });
+
+      const rowCount = await this.getRowCount();
+
+      if (rowCount === 0) {
+        console.warn('Bảng hiện tại không có dòng dữ liệu nào.');
+        return [];
+      }
+
+      for (let i = 0; i < rowCount; i++) {
+        const rowText = await this.tableRows.nth(i).innerText();
+        rows.push(rowText.trim());
+      }
+
+      return rows;
+
+    } catch (error) {
+      console.error('Không thể lấy dữ liệu bảng.', error);
+      return [];
     }
-
-    return rows;
   }
-  async getRowObjects(): Promise<RowData[]> {
-    await this.tableRows.first().waitFor({ state: 'visible', timeout: 5000 });
 
-    const rowCount = await this.tableRows.count();
+  public async getRowObjects(): Promise<RowData[]> {
     const rowObjects: RowData[] = [];
 
-    for (let i = 0; i < rowCount; i++) {
-      const row = this.tableRows.nth(i);
-      const cells = row.locator('td');
+    try {
+      await this.tableRows.first().waitFor({ state: 'visible', timeout: 5000 });
 
-      // Bỏ cột đầu tiên (icon edit/delete)
-      const id = (await cells.nth(1).innerText()).trim();
-      const firstName = (await cells.nth(2).innerText()).trim();
-      const lastName = (await cells.nth(3).innerText()).trim();
-      const username = (await cells.nth(4).innerText()).trim();
-      const email = (await cells.nth(5).innerText()).trim();
-      const age = (await cells.nth(6).innerText()).trim();
+      const rowCount = await this.tableRows.count();
 
-      rowObjects.push({ id, firstName, lastName, username, email, age });
+      for (let i = 0; i < rowCount; i++) {
+        const row = this.tableRows.nth(i);
+        const cells = row.locator('td');
+
+        const id = (await cells.nth(1).innerText()).trim();
+        const firstName = (await cells.nth(2).innerText()).trim();
+        const lastName = (await cells.nth(3).innerText()).trim();
+        const username = (await cells.nth(4).innerText()).trim();
+        const email = (await cells.nth(5).innerText()).trim();
+        const age = (await cells.nth(6).innerText()).trim();
+
+        rowObjects.push({ id, firstName, lastName, username, email, age });
+      }
+
+      return rowObjects;
+
+    } catch (error) {
+      console.error('Không thể chuyển bảng thành object.', error);
+      return [];
     }
-
-    return rowObjects;
   }
 }
