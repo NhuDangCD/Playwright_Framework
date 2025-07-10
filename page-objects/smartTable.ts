@@ -14,14 +14,10 @@ export class SmartTablePage {
 
   constructor(page: Page) {
     this.page = page;
-
     // Chọn tất cả hàng trong bảng (tbody > tr)
     this.tableRows = page.locator('table tbody tr');
   }
-
-  /**
-   * Trả về số lượng dòng (tr) trong bảng
-   */
+  // Trả về số lượng dòng (tr) trong bảng
   async getRowCount(): Promise<number> {
     return await this.tableRows.count();
   }

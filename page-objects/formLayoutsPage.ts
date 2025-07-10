@@ -21,8 +21,6 @@ export class formLayoutsPage {
         if (rememberMe)
             await usingTheInLineForm.getByRole('checkbox').check ({force:true})
         await usingTheInLineForm.getByRole('button').click()
-
-
     } 
 
 }
