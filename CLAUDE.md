@@ -49,6 +49,7 @@ The project follows a Page Object Model pattern with inheritance:
 - `tests/usePageObjects.spec.ts`: Main test file demonstrating form filling and date picker interactions
 - `tests/smartTable.spec.ts`: Smart table specific tests
 - `tests/firstTest.spec.ts`: Basic test examples
+- `tests/tooltip.spec.ts`: Tooltip hover functionality tests
 
 ### Angular Application Structure
 The app uses Nebular theme with:
