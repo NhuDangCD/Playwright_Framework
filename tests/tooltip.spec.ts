@@ -8,7 +8,7 @@ test.use({
 })
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/')
+    await page.goto('/')
     await page.waitForLoadState('domcontentloaded')
 })
 
@@ -102,6 +102,48 @@ test.describe('Tooltip Tests', () => {
         }
         
         console.log('\n✅ All tooltip placements verified successfully!')
+    })
+    
+    test('should verify colored tooltip displays correctly', async ({ page }) => {
+        const navigateTo = new NavigationPage(page)
+        const tooltipPage = new TooltipPage(page)
+        
+        // Navigate to tooltip page under Modal & Overlays
+        await navigateTo.tooltipPage()
+        await page.waitForTimeout(2000)
+        
+        // Define expected colors for tooltips
+        const coloredTooltips = [
+            { buttonText: 'Primary', expectedColor: 'rgb(51, 102, 255)' }, // Primary blue
+            { buttonText: 'Success', expectedColor: 'rgb(0, 214, 143)' }, // Success green
+            { buttonText: 'Danger', expectedColor: 'rgb(255, 61, 113)' }, // Danger red
+            { buttonText: 'Warning', expectedColor: 'rgb(255, 170, 0)' }  // Warning yellow
+        ]
+        
+        console.log('Testing colored tooltips...')
+        
+        for (const tooltip of coloredTooltips) {
+            console.log(`\nTesting ${tooltip.buttonText} tooltip...`)
+            
+            // Find and hover on the specific colored tooltip button
+            const button = page.locator(`button:has-text("${tooltip.buttonText}")`).first()
+            await button.hover()
+            await page.waitForTimeout(500)
+            
+            // Get tooltip background color
+            const tooltipBgColor = await tooltipPage.getTooltipBackgroundColor()
+            console.log(`${tooltip.buttonText} tooltip color: ${tooltipBgColor}`)
+            
+            // Verify the tooltip has the expected color
+            expect(tooltipBgColor).toBe(tooltip.expectedColor)
+            console.log(`✅ ${tooltip.buttonText} tooltip displays with correct color`)
+            
+            // Move mouse away
+            await tooltipPage.moveMouseAway()
+            await page.waitForTimeout(300)
+        }
+        
+        console.log('\n✅ All colored tooltips display correctly!')
     })
     
 })

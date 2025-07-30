@@ -4,7 +4,7 @@ import { formLayoutsPage } from '../page-objects/formLayoutsPage'
 import { DatePicker } from '../page-objects/datePicker'
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/')
+    await page.goto('/')
 })
 test('navigate to form page', async ({ page }) => {
     const navigateTo = new NavigationPage(page)

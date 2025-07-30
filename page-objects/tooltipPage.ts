@@ -32,7 +32,7 @@ export class TooltipPage extends HelperBase {
     }
 
     async navigateToTooltipPage() {
-        await this.page.goto('http://localhost:4200/');
+        await this.page.goto('/');
         await this.waitForNumberOfSeconds(2);
     }
 

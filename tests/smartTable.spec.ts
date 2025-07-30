@@ -3,7 +3,7 @@ import { SmartTablePage } from '../page-objects/smartTable';
 import { NavigationPage } from '../page-objects/navigationPage';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://localhost:4200/')
+  await page.goto('/')
 })
 test('Print table rows as array of objects', async ({ page }) => {
   const nav = new NavigationPage(page);

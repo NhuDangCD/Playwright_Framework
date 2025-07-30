@@ -36,7 +36,7 @@ export class RegisterPage extends HelperBase {
     }
 
     async navigateToRegisterPage() {
-        await this.page.goto('http://localhost:4200/auth/register');
+        await this.page.goto('/auth/register');
         await this.waitForNumberOfSeconds(1);
     }
 
@@ -63,11 +63,6 @@ export class RegisterPage extends HelperBase {
         }
         
         await this.submitRegistration();
-    }
-
-    async getSuccessMessage() {
-        return this.page.locator('.alert-success, .success, [class*="success"], .toast-success')
-            .or(this.page.locator('text=/success|registered|welcome/i'));
     }
 
     async acceptTermsAndConditions() {
@@ -115,16 +110,5 @@ export class RegisterPage extends HelperBase {
 
     async isRegisterButtonVisible(): Promise<boolean> {
         return await this.registerButton.first().isVisible();
-    }
-
-    async getValidationError(fieldType: 'email' | 'password' | 'general' = 'general'): Promise<Locator> {
-        switch (fieldType) {
-            case 'email':
-                return this.page.locator('text=/invalid.*email|email.*invalid/i');
-            case 'password':
-                return this.page.locator('text=/password.*match|passwords.*match/i');
-            default:
-                return this.page.locator('.error, .invalid, [class*="error"], [class*="invalid"]');
-        }
     }
 }

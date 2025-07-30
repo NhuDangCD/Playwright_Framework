@@ -27,7 +27,7 @@ export class TemperaturePage extends HelperBase {
 
     async navigateToTemperaturePage() {
         // Navigate directly to the IoT dashboard page
-        await this.page.goto('http://localhost:4200/pages/iot-dashboard');
+        await this.page.goto('/pages/iot-dashboard');
         await this.page.waitForLoadState('networkidle');
         await this.waitForNumberOfSeconds(2);
     }

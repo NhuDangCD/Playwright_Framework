@@ -7,7 +7,7 @@ test.use({
 })
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/pages/iot-dashboard')
+    await page.goto('/pages/iot-dashboard')
     await page.waitForLoadState('networkidle')
 })
 
