@@ -21,9 +21,9 @@ This repository contains:
 ```
 
 ### Application Under Test
-The Angular application is a modified, lightweight version of the original ngx-admin application from akveo.com, included here for testing purposes.
-
-Original repository: https://github.com/akveo/ngx-admin
+The Angular application is maintained in a separate repository for better modularity:
+- **Demo App Repository**: https://github.com/NhuDangCD/nhu-angular-demo-app
+- **Based on**: Original ngx-admin by https://github.com/akveo/ngx-admin
 
 ## Features
 
